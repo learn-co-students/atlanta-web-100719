@@ -5,7 +5,22 @@ desc "Start our app console"
 task :console do
   Pry.start
 end
+
+
 desc "stops the hateration"
 task :sing do
   puts "let's get it crunk up in this dancery"
 end
+
+# We added a new administrative task to spread the love- how does this work? 
+# We created a task with the name (desc) "spreads the love". we expect the task to 'spread', 
+# and will call 'rake spread' when we want to execute this task in the command line. What does
+# this task then do? It prints "why can't we be friends???"! Test it in command line. For more info, visit
+# https://www.rubyguides.com/2019/02/ruby-rake/ 
+
+desc  "spreads the love"
+task :spread do
+  puts "why can't we be friends???"
+end
+
+

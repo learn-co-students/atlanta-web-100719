@@ -1,138 +1,72 @@
-- Active record - How to use it!
-- Migrations What are they?
-- methods from Active record
+# Intro to ActiveRecord
 
+## SWBATs (Students Will Be Able To)
+
+- Describe how gems work and the value of shared code
+- Explain how rake works and how to run rake tasks
+- Break down common files in a Rails/ActiveRecord app
+- Understand what ActiveRecord is doing visually and conceptually
+
+
+## Gems Review
+
+Gems are a snippet of code built by other engineers to speed up YOUR development process in Ruby. Sharing code in this way increases the learning and efficiency for all engineers, and is encouraged in the industry.
 
 
 ### Rake and File Structure
 
-- Rake
-  - We have a Rakefile that defines tasks to be run from the command line
+
+#### What's Rake? What's a Rakefile? 
+
+  - Rake is a utility to handle admin tasks and commands. 
+  - A Rakefile defines tasks to be run from the command line.
   - To view tasks, run `rake -T` from your terminal
-  - Tasks allow us to encapsulate ruby code that we want to execute **from the command line**
+  - Tasks allow us to encapsulate ruby code that we want to execute.
   - We're getting some tasks from the `sinatra/activerecord/rake` library which gives us easy to use ActiveRecord tasks (we can see this included in our gemfile)
-  ***
-- File structure
+
+-------
+
+
+#### ActiveRecord File Structure Review
+
+Here's some of the common files you'll find in an app with ActiveRecord in use. Again, we're using ActiveRecord as the M in our MVC structure, to handle, create, and augment Ruby objects as they allude to a database.
+
+
   - Gemfile––what is a gemfile? Why on earth would we want to use one?
+  --> to get access to gems we need to run our app!!!!  (TRUE)
+
+  We use a gemfile to let us know the basic requirements to run the app we've created. Gemfile.lock lets us know which dependencies were installed. 
+
   - `app` folder holds our models––our Ruby classes
-  - `db` directory holds migrations and seeds.rb file––what are our seeds?
-  - `config` holds environment file
+  --> We examined this folder and saw that Ruby classes have been created in a familiar way (from when we created raw Ruby classes), but has a few new things: 
+
+  class Squirrel < ActiveRecord::Base
+
+  It looks like ActiveRecord is instantiated here in some way. How does this inclusion make our classes function differently? We'll examine this more when we move into creating with ActiveRecord. 
+
+  - `db` directory holds migrations, a schema file, and a seeds.rb file
+  
+  --> seeds.rb lists seed data that we're giving our app to pull from. 
+  --> schema.rb is our schema that was auto-generated from the current state of the database. Look at `t` - what is it doing in the schema as it relates to creating a table?
+
+  --> migrations- there's a lot of migrations with a timestamp before the filename. Why is this? 
+
+Migrations alter your database schema in some way, and timestamps are an **auto-generated** way to know when you've altered the schema. Here's a resource: [ActiveRecord Migrations](https://guides.rubyonrails.org/active_record_migrations.html)
+
+  - `config` holds environment files
+
     - `require 'bundler'` and `Bundler.require` **load all of the gems in our Gemfile**
-    - `ActiveRecord::Base.establish_connection` **sets up our database** (with options hash)
+    - `ActiveRecord::Base.establish_connection` **sets up our database** 
     - `require_all` **loads all of our application code**
 
----
 
-### Migrations and Database Structure
+Keep this app as a reference to how an app looks with ActiveRecord working. In order to appreciate the magic that ActiveRecord does for us (and to debug if something goes wrong), it's wise to understand what each of the major files are doing. 
 
-- we want to create our first model \(ruby class + sql table\)––how to we bridge the gap between sql data and our ruby classes?
-- What is a model? Our Ruby Class
-- What is a migration? Some ruby code that alters our schema
-- What is a schema? The structure of our database
-- to get our database set up, we need to use the `rake db:create_migration NAME=create_boxers`
-- check out the migrations in the `db/migrations` folder
+Look through this app and familiarize yourself with what's going on to understand what you can do with Ruby objects with the help of ActiveRecord. 
 
-  - what is the sequence of numbers in the beginning of the file name? It's a time stamp that identifies our migrations. We need these migrations to run in the order in which they were created.
-  - What are the `change`, `up`, and `down` methods in migrations? These ActiveRecord methods allow us to alter our db schema.
 
-- `create_table` method which takes a block, the block takes a table builder
 
-  - why do we use the `t` variable?
-  - `t.string :name` what is the `string` method declaring? This table will have a property called name that is a string
 
-  ***
 
-- run migrations `rake db:migrate`
 
-  - Our `schema.rb` which is the **authoritative representation of the database structure**
-  - look at the `version` argument in the schema to see if it matches with the last successful migration timestamp. **These should match if your migration succeeded**
 
-  ***
-
-- migration conventions
-
-  - **file name and class name must match up exactly, but in different case**––for example `TIMESTAMP_create_trainers.rb` our db table is pluralized `trainers` and our model (Ruby class) is singular
-
-    ```ruby
-    class Trainer < ActiveRecord::Base
-    end
-    ```
-
-  - create_table block argument is usually a `t`
-
-- blowing up the database (DO NOT DO IN REAL LIFE)
-  - delete db
-  - delete schema.rb
-  - !!! don't do this, just in this module, and don't do it if you can't easily get your data back
-  - instead, use `rake db:rollback`
-  ***
-- gracefully fixing the db
-  - create a new migration
-  - roll that migration back
-  - delete the migration files you don't want to keep
-- we don't need to create migration files by hand anymore! 😍THX ACTIVERECORD😍
-
-### Connecting Models to ActiveRecord
-
-- Our models (Ruby classes) appear in `app/models`
-  - **MAJOR KEY 🔑** convention is to have the model class name singular and the sql table plural––
-  ```ruby
-  class Trainer < ActiveRecord::Base
-  end
-  ```
-  but the table is called `trainers`
-- Since our Ruby classes inherit from ActiveRecord, we have access to AR methods
-
-  - We can use `Trainer.create(name: 'John Kavanagh')` to both **save our trainer to the db** and **create a ruby object with that same data**
-  - How do we suddenly know which attributes our trainer is supposed to have?
-
-- A boxer belongs to a trainer, so we need to create it with an trainer_id: `Boxer.create(name: 'Cris Cyborg', trainer_id: 1)`
-
-- How can we associate a boxer with an author and vice-versa?
-
-```ruby
-class Boxer < ActiveRecord::Base
-  def trainer
-    # Trainer.all.find{ |trainer| trainer.id == self.trainer_id }
-    # OR use AR .find
-    Trainer.find(self.trainer_id)
-  end
-end
-#...
-class Trainer < ActiveRecord::Base
-  def boxers
-    # Boxer.all.select{|boxer| boxer.trainer_id == self.id}
-    # OR use AR .where
-    Trainer.where(trainer_id: self.id)
-  end
-end
-```
-
-## What About a Better Way™️
-
-- ActiveRecord Macros
-  - Boxer model: `belongs_to :trainer`
-  - Trainer model `has_many :boxers`
-- These macros provide **even more** methods, like `boxer_instance.trainer` and `trainer_instance.boxers`
-  - **Major Key🔑**––since a boxer belongs_to a trainer it should have ONE trainer. Therefore the method is `.trainer`. A trainer HAS MANY boxers, therefore the method is `.boxers` pay attention to what is singular and what is plural.
-
-### Important Methods from ActiveRecord
-
-- Model.new
-  - creates a new **RUBY** instance in local memory without persisting to the database
-- Model\#save
-  - inserts or updates a **RUBY** instance to the db
-- Model.create
-  - Model.new + Model\#save
-  - A class method that creates a new **RUBY** instance AND saves it to the database
-- Model.all
-  - returns all instances (we wrote this by hand a million times)
-- Model.first
-  - instance with the lowest ID in the db
-- Model.find
-  - Finds a record by id and returns a Ruby instance––`Boxer.find(1)` returns the boxer with an id of 1
-- Model.find_by\({ attribute: value }\)
-  - can find by one attribute-value pair or multiple
-  - `Boxer.find_by(name: 'Mike Tyson')` will return the boxer with a name of 'Mike Tyson'
-
-[Active Record Docs](http://edgeguides.rubyonrails.org/active_record_migrations.html#using-the-up-down-methods)
