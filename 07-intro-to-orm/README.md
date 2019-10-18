@@ -101,17 +101,19 @@ What did we learn about the Single Source of Truth Principle?
 
 books
 
-id  |   title                                   |   author_id    
-1   |    'Sula'                                 |       1        
-2   |    'I Know Why the Caged Bird Sings'      |       2        
-3   |    'The Bluest Eye'                       |       1        
-4   |    'Beloved'                              |       1        
+| id  |   title                                   |   author_id |
+|-----|-------------------------------------------|-------------|   
+| 1   |    'Sula'                                 |       1     |  
+| 2   |    'I Know Why the Caged Bird Sings'      |       2     |   
+| 3   |    'The Bluest Eye'                       |       1     |   
+| 4   |    'Beloved'                              |       1     |   
 
 authors
 
-id |    name                 
-1  |     'Toni Morrison'     
-2  |     'Maya Angelou'      
+| id |    name              |
+|----|----------------------|                 
+| 1  |     'Toni Morrison'  |   
+| 2  |     'Maya Angelou'   |  
 
 
 So, understanding that we need to really hone in on relationships and getting those RIGHT, remember that the BELONGS TO is what has the foriegn key. 
@@ -142,26 +144,29 @@ What type of relationship is this?
 
 books
 
-id  |   title                                   |   author_id    
-1   |    'Sula'                                 |       1        
-2   |    'I Know Why the Caged Bird Sings'      |       2        
-3   |    'The Bluest Eye'                       |       1        
-4   |    'Beloved'                              |       1        
+| id  |   title                                   |   author_id |
+|-----|-------------------------------------------|-------------|   
+| 1   |    'Sula'                                 |       1     |  
+| 2   |    'I Know Why the Caged Bird Sings'      |       2     |   
+| 3   |    'The Bluest Eye'                       |       1     |   
+| 4   |    'Beloved'                              |       1     |   
 
 authors
 
-id |    name                 
-1  |     'Toni Morrison'     
-2  |     'Maya Angelou'
+| id |    name              |
+|----|----------------------|                 
+| 1  |     'Toni Morrison'  |   
+| 2  |     'Maya Angelou'   |
 
 
 books_authors
 
-id  |   books_id  |   authors_id
-1       1               1
-2       2               2   
-3       3               1
-4       4               1
+| id  |   books_id   |   authors_id    |
+|-----|--------------|-----------------|
+| 1   |    1         |      1          |
+| 2   |    2         |      2          |
+| 3   |    3         |      1          |
+| 4   |    4         |      1          |
 
 
 
