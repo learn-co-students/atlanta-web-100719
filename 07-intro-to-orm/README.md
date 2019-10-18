@@ -201,7 +201,7 @@ We're going to stop here for this lecture and pick up into practical ways of usi
 
 MAIN TAKEAWAYS FOR TODAY: 
 
-- SQL is a relational database that deals with how tables with data that relates to each other. 
+- SQL is a relational database that deals with how tables with data relates to each other. 
 - We can see Ruby-esque relationships (one to many, many to many) when joining tables in SQL. 
 - Ruby augments objects, and ORM helps to map tables in our database to a Ruby class (models), with instances as rows
 
@@ -209,21 +209,71 @@ MAIN TAKEAWAYS FOR TODAY:
 ### (FINISHING OUR SWBAT FROM YESTERDAY) Demonstrate that ORMs are the pattern connecting scripting languages and databases
 Update: 
 
-SQL: 
-RUBY:
+SQL: UPDATE books SET (title, author_id) VALUES ("CoolBookie", 1) WHERE book = 1
+RUBY: books.title = "CookBookie"
 
 Destroy: 
 
-SQL: 
-RUBY:
+SQL: DESTROY books WHERE id = 2
+RUBY: books.destroy
 
 
 ------
 
-#### ORM Patterns 
+#### ORM/ Active Record Patterns 
+
+Here's the rules for one of the most popular ORMs, Active Record: 
+
+- each table in our DB should correspond with a Ruby class (model)
+- table is always plural, class (model) is singular
+- instances of classes are rows in the DB
+- columns are attributes on each instance
+
+
+
+SO: 
+
+This is how the mapping magic is happening! With an ORM, we're taking SQL queries and mapping them to Ruby objects directly, helping to automate query tasks. Refer to your resources for more information.
+
 
 ### Explain how the sqlite gem works as a driver or wrapper around SQL
 
-### Implement HEREDOCs to be saved in variables to be executed by SQL driver
+What is (a) bundler? 
 
-### Perform persistent CRUD actions on two separate models
+-->  Bundler allows you to manage all of your Ruby gems. It makes sure you have all the gems you need for development. 
+
+Learn more at bundler.io! 
+
+That's cool, but what is a gem? 
+
+--> A gem in Ruby is a piece of code written by someone else that helps you speed up your development process. It typically includes: 
+
+- Documentation, which includes how to get the most out of the gem
+- code (including tests and utilities needed to make them run)
+- a gemspec, which shares version number, platform, and test information.
+
+
+How does knowledge of bundler and gems help me to understand how SQL and Active Record relates? 
+
+--> Like Bundler and ruby gems, Active Record works with the MODEL (in MVC- model view controller) to automate tasks that work with Ruby objects.
+
+We know that SQL handles data in a database, and performs CRUD operations on them. Here's a textbook definition to break down: 
+
+Active Record ensures data access logic 
+as part of an object
+that will educate users of that object on how to write to and read from the database.
+
+
+Broken down: 
+
+--> Active Record gives you the ability to:
+
+- Represent models and their data.
+- Represent associations between these models.
+- Represent inheritance hierarchies through related models.
+- Validate models before they get persisted to the database.
+- Perform database operations in an object-oriented fashion.
+
+
+
+Awesome! How's that feel? Got the correlation? If so, let's now jump into Active Record. 
