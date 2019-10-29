@@ -1,0 +1,11 @@
+<h1>Edit the Author Name</h1>
+
+<form action="/authors/<%= @author.id %>" method="post">
+
+  <input type="hidden" name="_method" value="patch">
+
+  <!-- Setting the author name as a value so it can be seen before updating -->
+  <input type="text" name="name" value='<%= @author.name %>'>
+
+  <input type="submit" value="Update Author">
+</form>

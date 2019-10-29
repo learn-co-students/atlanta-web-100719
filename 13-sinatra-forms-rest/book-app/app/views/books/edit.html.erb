@@ -1,0 +1,27 @@
+<h1>Edit the Book Information</h1>
+
+<form action="/books/<%= @book.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+  <!-- Setting the book info as a value so it can be seen before updating -->
+  <!-- ALSO, put a binding.pry on the update route in controller and checkout params hash -->
+  <label for="book[title]">
+    Title: <input type="text" name="book[title]" value='<%= @book.title %>'>
+  </label> <br><br>
+  <label for="book[snippet]">
+    Snippet: <input type="text" name="book[snippet]" value='<%= @book.snippet %>'>
+  </label> <br><br>
+  <label for="book[author]">
+    Author Name:<input type="text" name="book[author]" value='<%= @book.author.name %>'>
+  </label> <br><br><br>
+
+  <input type="submit" value="Update Book">
+</form>
+<br>
+All Author Names: <br>
+(Use the exact names while updating..) <br><br>
+<ul>
+  <% @authors.each do |author| %>
+    <li> - <%= author.name %></li>
+  <% end %>
+</ul>

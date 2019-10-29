@@ -1,0 +1,23 @@
+<h1> Author: <%= @author.name %> </h1>
+<br>
+<br>
+<h2> List of Books: </h2>
+<ul>
+  <% @author.books.each do |book| %>
+    <li>
+      <a href="/books/<%= book.id %>">
+        <%=book.title%>
+      </a>
+    </li>
+  <% end %>
+</ul>
+
+<br><br>
+<a href="/authors/<%= @author.id %>/edit">
+  <input type="button" value="Edit Author">
+</a>
+
+<form action="/authors/<%= @author.id %>/delete" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete Author">
+</form>

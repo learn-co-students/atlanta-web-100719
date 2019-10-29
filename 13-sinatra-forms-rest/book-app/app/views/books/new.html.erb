@@ -1,0 +1,26 @@
+<h1>Create a New Book</h1>
+
+<form action="/books" method="post">
+
+  <!-- Setting the book info as a value so it can be seen before updating -->
+  <!-- ALSO, put a binding.pry on the update route in controller and checkout params hash -->
+  <label for="book[title]">
+    Title: <input type="text" name="book[title]">
+  </label> <br><br>
+  <label for="book[snippet]">
+    Snippet: <input type="text" name="book[snippet]">
+  </label> <br><br>
+  <label for="book[author]">
+    Author Name:<input type="text" name="book[author]">
+  </label> <br><br><br>
+
+  <input type="submit" value="Create Book">
+</form>
+<br>
+All Author Names: <br>
+(Use the exact names while updating..) <br><br>
+<ul>
+  <% @authors.each do |author| %>
+    <li> - <%= author.name %></li>
+  <% end %>
+</ul>
