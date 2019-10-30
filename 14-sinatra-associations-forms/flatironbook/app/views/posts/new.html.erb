@@ -1,0 +1,17 @@
+<h1>New Post</h1>
+
+<form action="/posts/create" method="post">
+
+  <input type="text" name="post[title]" value="">
+  <br>
+  <input type="text" name="post[content]" value="">
+  <br>
+  <select name="post[user_id]">
+    <% @users.each do |user| %>
+      <option value="<%= user.id %>"> <%= user.name %> </option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Create Post">
+
+</form>
