@@ -1,0 +1,10 @@
+<h1>Edit a new rant</h1>
+
+<%= form_for @rant, method: :patch do |f| %>
+    Content:
+      <%= f.text_field :content %> <br /><br />
+    Author:
+      <%= f.collection_select(:user_id, User.all, :id, :username) %> <br /><br />
+
+    <%= f.submit %>
+<% end %>

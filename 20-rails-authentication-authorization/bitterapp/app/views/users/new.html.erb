@@ -1,0 +1,17 @@
+<h1>Create a new user</h1>
+
+<% if flash[:errors] %>
+  <h3 style='color: red;'>
+    Error: <%= flash[:errors].first %>
+  </h3>
+<% end %>
+
+<%= form_for @user, method: :post do |f| %>
+    Username: <%= f.text_field :username %><br /><br />
+    Password: <%= f.text_field :password %><br /><br />
+    Bio: <%= f.text_field :bio %><br /><br />
+    Email: <%= f.text_field :email %><br /><br />
+    Location: <%= f.text_field :location %><br /><br />
+    <br />
+    <%= f.submit %>
+  <% end %>

@@ -1,0 +1,17 @@
+<h1>Create a new rant</h1>
+
+<% if flash[:error]%>
+  <h3 style='color: red;'>
+    Error: <%= @rant.errors.full_messages %>
+  </h3>
+<% end %>
+
+
+<%= form_for @rant, method: :post do |f| %>
+    Content:
+      <%= f.text_field :content %> <br /><br />
+    Author:
+      <%= f.collection_select(:user_id, User.all, :id, :username) %> <br /><br />
+
+    <%= f.submit %>
+<% end %>

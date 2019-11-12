@@ -1,0 +1,15 @@
+<h1>List of all users</h1>
+
+<% @users.each do |user| %>
+  <ul>
+    <li> <b>Username:</b> <%= user.username %> </li>
+    <li> <b>Bio:</b> <%= user.bio %> </li>
+    <li> <b>Email:</b> <%= user.email %> </li>
+    <li> <b>Location:</b> <%= user.location %> </li>
+
+    <% if user == current_user %>
+      <li> <%= link_to "Edit", edit_user_path(user) %> </li>
+      <li> <%= button_to "Delete", user, :method => :delete %> </li>
+    <% end %>
+  </ul>
+<% end%>

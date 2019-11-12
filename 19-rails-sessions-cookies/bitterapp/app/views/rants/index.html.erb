@@ -1,0 +1,11 @@
+<h1>List of all rants</h1>
+
+<% @rants.each do |rant| %>
+  <ul>
+    <li> Content:  <%= rant.content %> </li>
+    <li> Posted by:  <%= rant.user.username %> </li>
+
+    <li> <%= link_to "Edit", edit_rant_path(rant) %> </li>
+      <%= button_to "Delete", rant, :method => :delete %>
+    </ul>
+<% end%>

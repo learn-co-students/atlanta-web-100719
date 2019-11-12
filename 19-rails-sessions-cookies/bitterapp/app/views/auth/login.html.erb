@@ -1,0 +1,18 @@
+<h1>This is the login page..</h1>
+
+<% if flash[:error] %>
+  <h3 style='color: red;'>
+    Error: <%= flash[:error] %>
+  </h3>
+<% end %>
+
+<%= form_tag("/login", method: "post") do %>
+
+  <%= label_tag(:username, "Username:") %>
+  <%= text_field_tag(:username) %>
+
+  <%= label_tag(:password, "Password:") %>
+  <%= text_field_tag(:password) %>
+
+  <%= submit_tag("Login") %>
+<% end %>
